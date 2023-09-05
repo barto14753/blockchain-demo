@@ -6,7 +6,7 @@ const theme = createTheme({
 		type: "dark",
 		background: {
 			default: "#303030",
-			paper: "#424242",
+			paper: "#C9C9C9",
 		},
 		primary: {
 			main: "#3f51b5",
