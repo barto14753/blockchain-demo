@@ -11,8 +11,9 @@ import {
 	InputLabel,
 } from "@mui/material";
 
-export default function Block() {
+export default function Block({ data, blocks, setBlocks }) {
 	const valid = true;
+
 	return (
 		<Box sx={{ p: 2 }}>
 			<Card
@@ -23,25 +24,25 @@ export default function Block() {
 					background: valid ? "#C9C9C9" : "#ef5350",
 				}}
 			>
-				<CardHeader title="Block #1" subheader="Created: " />
+				<CardHeader
+					title={"Block #" + data.id}
+					subheader={"Created: " + data.created}
+				/>
 				<CardContent>
 					<FormControl fullWidth sx={{ m: 1 }} variant="filled">
 						<InputLabel>Nonce</InputLabel>
-						<FilledInput id="nonce" defaultValue={123} />
+						<FilledInput id="nonce" defaultValue={data.nonce} />
 					</FormControl>
 					<FormControl fullWidth sx={{ m: 1 }} variant="filled">
 						<InputLabel>Data</InputLabel>
-						<FilledInput
-							id="data"
-							defaultValue="This is block data"
-							multiline={true}
-						/>
+						<FilledInput id="data" defaultValue={data.data} multiline={true} />
 					</FormControl>
 					<FormControl fullWidth sx={{ m: 1 }} variant="filled">
 						<InputLabel>Prev</InputLabel>
 						<FilledInput
 							id="prev"
-							defaultValue="0000000000000000000000000000000000000000000000000000000000000000"
+							disabled={true}
+							defaultValue={data.prev}
 							multiline={true}
 						/>
 					</FormControl>
@@ -49,7 +50,8 @@ export default function Block() {
 						<InputLabel>Hash</InputLabel>
 						<FilledInput
 							id="hash"
-							defaultValue="00007a6453500118280ce6d1e20b66e3f9feb2f24b834f18c7a3698e8fd892a2"
+							disabled={true}
+							defaultValue={data.hash}
 							multiline={true}
 						/>
 					</FormControl>
