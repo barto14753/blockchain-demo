@@ -5,27 +5,26 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import {
 	Box,
+	CardHeader,
 	FilledInput,
 	FormControl,
-	InputAdornment,
 	InputLabel,
 } from "@mui/material";
 
 export default function Block() {
+	const valid = true;
 	return (
 		<Box sx={{ p: 2 }}>
-			<Card sx={{ width: 500, minHeight: 500, p: 1 }}>
+			<Card
+				sx={{
+					width: 500,
+					minHeight: 500,
+					p: 1,
+					background: valid ? "#C9C9C9" : "#ef5350",
+				}}
+			>
+				<CardHeader title="Block #1" subheader="Created: " />
 				<CardContent>
-					<FormControl fullWidth sx={{ m: 1 }} variant="filled">
-						<InputLabel>Block</InputLabel>
-						<FilledInput
-							id="block-fill"
-							defaultValue={1}
-							startAdornment={
-								<InputAdornment position="start">#</InputAdornment>
-							}
-						/>
-					</FormControl>
 					<FormControl fullWidth sx={{ m: 1 }} variant="filled">
 						<InputLabel>Nonce</InputLabel>
 						<FilledInput id="nonce" defaultValue={123} />

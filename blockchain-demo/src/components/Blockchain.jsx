@@ -4,8 +4,7 @@ import Block from "./Block";
 
 export default function Blockchain() {
 	return (
-		<Box sx={{ display: "flex", flexWrap: "wrap" }}>
-			<Block />
+		<Box sx={{ display: "flex", flexWrap: "wrap", p: 5 }}>
 			<Block />
 			<Block />
 			<Block />
