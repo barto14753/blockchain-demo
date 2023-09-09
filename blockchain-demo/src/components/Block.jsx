@@ -26,7 +26,7 @@ export default function Block({ data, blocks, setBlocks }) {
 			>
 				<CardHeader
 					title={"Block #" + data.id}
-					subheader={"Created: " + data.created}
+					subheader={"Created: " + new Date(data.created).toISOString()}
 				/>
 				<CardContent>
 					<FormControl fullWidth sx={{ m: 1 }} variant="filled">
