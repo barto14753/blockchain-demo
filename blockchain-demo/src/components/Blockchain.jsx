@@ -4,6 +4,7 @@ import Block from "./Block";
 import { fromRange } from "../utils/Random";
 import sha256 from "crypto-js/sha256";
 import AddIcon from '@mui/icons-material/Add';
+import { newBlock } from "../utils/BlockUtils";
 
 
 const initialBlocks = [
@@ -34,6 +35,13 @@ const initialBlocks = [
 ];
 export default function Blockchain() {
 	const [blocks, setBlocks] = useState(initialBlocks);
+
+	const addBlock = () => {
+		const lastBlock = blocks[blocks.length - 1]
+		console.log(lastBlock)
+		const block = newBlock(lastBlock, "Some data")
+		setBlocks([...blocks, block])
+	}
 	return (
 		<>
 		<Box sx={{ display: "flex", flexWrap: "wrap", p: 5 }}>
@@ -45,7 +53,7 @@ export default function Blockchain() {
 					setBlocks={setBlocks}
 				/>
 			))}
-			<Fab color="primary" aria-label="add" style={{position: 'fixed', right: '50px', bottom: '50px'}}>
+			<Fab color="primary" onClick={addBlock} aria-label="add" style={{position: 'fixed', right: '50px', bottom: '50px'}}>
 				<AddIcon />
 			</Fab>
 		</Box>

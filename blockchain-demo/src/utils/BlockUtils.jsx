@@ -1,14 +1,17 @@
 import sha256 from "crypto-js/sha256";
 import { hash } from "./Hash";
 
-const MINE_DIFFICULTY = 4;
-const SEARCH_DEPTH = 10000000;
+const MINE_DIFFICULTY = 1;
+const SEARCH_DEPTH = 100000;
 
 
 export const mine = (block) => {
 	const nonce = [...Array(SEARCH_DEPTH).keys()]
-		.map((nonce) => sha256(nonce + block.id + block.created + block.prev))
-		.find((h) => h.slice(MINE_DIFFICULTY) === MINE_DIFFICULTY * "0");
+		.map(nonce => sha256(nonce + block.id + block.created + block.prev))
+		.find(h => {
+            console.log(h)
+            return h.slice(MINE_DIFFICULTY) === MINE_DIFFICULTY * "0"
+        });
     block.nonce = nonce
     block.hash = hash(block)
     return block
