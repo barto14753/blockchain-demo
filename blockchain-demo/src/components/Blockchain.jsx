@@ -16,7 +16,16 @@ export default function Blockchain() {
 		console.log(lastBlock)
 		const block = newBlock(lastBlock, "Some data")
 		setBlocks([...blocks, block])
+		scrollDown()
 	}
+
+	const scrollDown = () => {
+		setTimeout(
+			() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }),
+			100
+		)
+	}
+
 	return (
 		<>
 		<Box sx={{ display: "flex", flexWrap: "wrap", p: 5 }}>
