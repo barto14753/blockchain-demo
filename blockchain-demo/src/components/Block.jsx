@@ -10,9 +10,10 @@ import {
 	FormControl,
 	InputLabel,
 } from "@mui/material";
+import { isValid } from "../utils/BlockUtils";
 
 export default function Block({ data, blocks, setBlocks }) {
-	const valid = true;
+	const valid = isValid(data)
 
 	return (
 		<Box sx={{ p: 2 }}>

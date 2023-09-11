@@ -28,3 +28,17 @@ export const newBlock = (prevBlock, data) => {
     }
     return mine(block)
 }
+
+export const isValid = (block) => {
+    return hash(block) === block.hash
+}
+
+export const createRootBlock =  () => {
+    const block = {
+		id: 0,
+		created: Date.now(),
+		data: "Sample data",
+		prev: "0".repeat(64),
+	}
+    return mine(block)
+}
