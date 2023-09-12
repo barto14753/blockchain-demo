@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/blockchain-demo/static/js/main.1b6b7949.js",
+    "index.html": "/blockchain-demo/index.html",
+    "main.1b6b7949.js.map": "/blockchain-demo/static/js/main.1b6b7949.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.1b6b7949.js"
+  ]
+}
