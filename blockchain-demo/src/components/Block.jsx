@@ -10,10 +10,18 @@ import {
 	FormControl,
 	InputLabel,
 } from "@mui/material";
-import { isValid } from "../utils/BlockUtils";
+import { isValid, propagateHashChange } from "../utils/BlockUtils";
 
-export default function Block({ data, blocks, setBlocks }) {
-	const valid = isValid(data)
+export default function Block({ block, blocks, setBlocks }) {
+	const valid = isValid(block)
+
+	const onDataChange = (e) => {
+		block.data = e.target.value
+		let blocksCopy = [...blocks]
+		blocksCopy[block.id] = block
+		const newBlocks = propagateHashChange(block.id, blocksCopy)
+		setBlocks(newBlocks)
+	}
 
 	return (
 		<Box sx={{ p: 2 }}>
@@ -26,24 +34,24 @@ export default function Block({ data, blocks, setBlocks }) {
 				}}
 			>
 				<CardHeader
-					title={"Block #" + data.id}
-					subheader={"Created: " + new Date(data.created).toISOString()}
+					title={"Block #" + block.id}
+					subheader={"Created: " + new Date(block.created).toISOString()}
 				/>
 				<CardContent>
 					<FormControl fullWidth sx={{ m: 1 }} variant="filled">
 						<InputLabel>Nonce</InputLabel>
-						<FilledInput id="nonce" defaultValue={data.nonce} />
+						<FilledInput id="nonce" defaultValue={block.nonce} />
 					</FormControl>
 					<FormControl fullWidth sx={{ m: 1 }} variant="filled">
 						<InputLabel>Data</InputLabel>
-						<FilledInput id="data" defaultValue={data.data} multiline={true} />
+						<FilledInput id="data" defaultValue={block.data} multiline={true} onChange={onDataChange} />
 					</FormControl>
 					<FormControl fullWidth sx={{ m: 1 }} variant="filled">
 						<InputLabel>Prev</InputLabel>
 						<FilledInput
 							id="prev"
 							disabled={true}
-							defaultValue={data.prev}
+							value={block.prev}
 							multiline={true}
 						/>
 					</FormControl>
@@ -52,7 +60,7 @@ export default function Block({ data, blocks, setBlocks }) {
 						<FilledInput
 							id="hash"
 							disabled={true}
-							defaultValue={data.hash}
+							value={block.hash}
 							multiline={true}
 						/>
 					</FormControl>

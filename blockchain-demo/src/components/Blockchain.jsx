@@ -32,7 +32,7 @@ export default function Blockchain() {
 			{blocks.map((block) => (
 				<Block
 					key={block.id}
-					data={block}
+					block={block}
 					blocks={blocks}
 					setBlocks={setBlocks}
 				/>
