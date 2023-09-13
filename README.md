@@ -17,6 +17,5 @@ You can:
 
 ## In-app
 
-![Screenshot from 2023-09-13 19-18-52](https://github.com/barto14753/blockchain-demo/assets/56938330/f613625f-1a6c-48b6-9eca-4c1ba4e1e3ee)
-
-![Screenshot from 2023-09-13 19-18-40](https://github.com/barto14753/blockchain-demo/assets/56938330/fde9a771-ad16-4f08-8453-22330f24c725)
+![371892678_351159997448274_6934262105148502482_n](https://github.com/barto14753/blockchain-demo/assets/56938330/4998f428-ea0e-42d2-ab9a-3192c464b5bd)
+![375022929_1241275979771068_8015411665035853231_n](https://github.com/barto14753/blockchain-demo/assets/56938330/c51f2035-6011-4409-bc18-d5d71b6b162d)
