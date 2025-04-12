@@ -1,4 +1,4 @@
-import { Box, Fab } from "@mui/material";
+import { Box, Fab, Grid } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import Block from "./Block";
 import AddIcon from "@mui/icons-material/Add";
@@ -41,34 +41,32 @@ export default function Blockchain() {
 	};
 
 	return (
-		<>
-			<Box sx={{ display: "flex", flexWrap: "wrap", p: 5 }}>
+		<Box sx={{ p: { xs: 3, sm: 6 } }}>
+			<Grid container spacing={6}>
 				{blocks.map((block) => (
-					<Block
-						key={block.id}
-						block={block}
-						blocks={blocks}
-						setBlocks={setBlocks}
-					/>
+					<Grid item xs={12} sm={6} md={6} lg={4} key={block.id}>
+						<Block block={block} blocks={blocks} setBlocks={setBlocks} />
+					</Grid>
 				))}
-				<Box
-					sx={{
-						position: "fixed",
-						right: "50px",
-						bottom: "50px",
-						display: "flex",
-						flexDirection: "column",
-						gap: 2,
-					}}
-				>
-					<Fab color="error" onClick={clearBlocks} aria-label="clear">
-						<DeleteIcon />
-					</Fab>
-					<Fab color="primary" onClick={addBlock} aria-label="add">
-						<AddIcon />
-					</Fab>
-				</Box>
+			</Grid>
+			<Box
+				sx={{
+					position: "fixed",
+					right: { xs: "16px", sm: "32px" },
+					bottom: { xs: "16px", sm: "32px" },
+					display: "flex",
+					flexDirection: "column",
+					gap: 2,
+					zIndex: 1000,
+				}}
+			>
+				<Fab color="error" onClick={clearBlocks} aria-label="clear">
+					<DeleteIcon />
+				</Fab>
+				<Fab color="primary" onClick={addBlock} aria-label="add">
+					<AddIcon />
+				</Fab>
 			</Box>
-		</>
+		</Box>
 	);
 }

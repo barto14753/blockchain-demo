@@ -112,20 +112,35 @@ export default function Block({ block, blocks, setBlocks }) {
 	};
 
 	return (
-		<Box sx={{ p: 2 }}>
+		<Box sx={{ width: "100%", p: 1 }}>
 			<Card
 				sx={{
-					width: 500,
-					minHeight: 500,
-					p: 1,
+					height: "100%",
+					p: { xs: 2, sm: 3 },
 					background: valid ? "#C9C9C9" : "#ef5350",
 				}}
 			>
 				<CardHeader
+					sx={{
+						pb: 3,
+						"& .MuiCardHeader-content": {
+							overflow: "hidden",
+							"& .MuiCardHeader-title": {
+								whiteSpace: "nowrap",
+								overflow: "hidden",
+								textOverflow: "ellipsis",
+							},
+							"& .MuiCardHeader-subheader": {
+								whiteSpace: "nowrap",
+								overflow: "hidden",
+								textOverflow: "ellipsis",
+							},
+						},
+					}}
 					title={"Block #" + block.id}
 					subheader={"Created: " + new Date(block.created).toISOString()}
 				/>
-				<CardContent>
+				<CardContent sx={{ py: 2 }}>
 					<FormControl fullWidth sx={{ m: 1 }} variant="filled">
 						<InputLabel>Nonce</InputLabel>
 						<FilledInput
@@ -175,7 +190,7 @@ export default function Block({ block, blocks, setBlocks }) {
 						/>
 					</Box>
 				</CardContent>
-				<CardActions>
+				<CardActions sx={{ flexWrap: "wrap", gap: 2, pt: 2 }}>
 					<Button variant="contained" onClick={mineBlock} disabled={isMining}>
 						{isMining ? "Mining..." : "Mine"}
 					</Button>
