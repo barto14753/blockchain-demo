@@ -22,6 +22,28 @@ export function mine(block, difficulty = 1) {
 	};
 }
 
+export function* mineGenerator(block, difficulty = 1) {
+	let hash = "";
+	let nonce = 0;
+	const target = "0".repeat(difficulty);
+	const BATCH_SIZE = 2500; // liczba prób na iterację
+
+	while (!hash.startsWith(target)) {
+		for (let i = 0; i < BATCH_SIZE; i++) {
+			nonce++;
+			hash = calculateHash(block.data, block.prev, nonce);
+			if (hash.startsWith(target)) break;
+		}
+		yield { nonce, hash, finished: hash.startsWith(target) };
+	}
+
+	return {
+		...block,
+		nonce,
+		hash,
+	};
+}
+
 export const newBlock = (prevBlock, data) => {
 	const block = {
 		id: prevBlock.id + 1,

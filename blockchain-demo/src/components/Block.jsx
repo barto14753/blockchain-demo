@@ -13,11 +13,32 @@ import {
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import Slider from "@mui/material/Slider";
-import { isValid, mine, propagateHashChange } from "../utils/BlockUtils";
+import {
+	isValid,
+	mineGenerator,
+	propagateHashChange,
+} from "../utils/BlockUtils";
 
 export default function Block({ block, blocks, setBlocks }) {
 	const [isMining, setIsMining] = React.useState(false);
 	const [difficulty, setDifficulty] = React.useState(1);
+	const [executionTime, setExecutionTime] = React.useState(0);
+	const [currentNonce, setCurrentNonce] = React.useState(0);
+	const startTimeRef = React.useRef(null);
+	const miningRef = React.useRef(null);
+
+	React.useEffect(() => {
+		const interval = setInterval(() => {
+			if (startTimeRef.current && isMining) {
+				const currentTime = performance.now();
+				setExecutionTime(
+					((currentTime - startTimeRef.current) / 1000).toFixed(2)
+				);
+			}
+		}, 10);
+
+		return () => clearInterval(interval);
+	}, [isMining]);
 
 	const valid = isValid(block, difficulty);
 
@@ -40,13 +61,48 @@ export default function Block({ block, blocks, setBlocks }) {
 
 	const mineBlock = () => {
 		setIsMining(true);
-		setTimeout(() => {
-			let blocksCopy = [...blocks];
-			blocksCopy[block.id] = mine(block, difficulty);
-			setBlocks(blocksCopy);
-			setIsMining(false);
-		}, 1000); // Simulate mining delay
+		startTimeRef.current = performance.now();
+		const generator = mineGenerator(block, difficulty);
+
+		const performMining = () => {
+			const result = generator.next();
+
+			if (!result.done) {
+				setCurrentNonce(result.value.nonce);
+
+				if (result.value.finished) {
+					// Mining complete
+					const endTime = performance.now();
+					setExecutionTime(
+						((endTime - startTimeRef.current) / 1000).toFixed(2)
+					);
+					setIsMining(false);
+
+					// Update block
+					let blocksCopy = [...blocks];
+					blocksCopy[block.id] = {
+						...block,
+						nonce: result.value.nonce,
+						hash: result.value.hash,
+					};
+					setBlocks(blocksCopy);
+				} else {
+					// Continue mining in the next frame
+					miningRef.current = requestAnimationFrame(performMining);
+				}
+			}
+		};
+
+		miningRef.current = requestAnimationFrame(performMining);
 	};
+
+	React.useEffect(() => {
+		return () => {
+			if (miningRef.current) {
+				cancelAnimationFrame(miningRef.current);
+			}
+		};
+	}, []);
 
 	const handleDifficultyChange = (event, newValue) => {
 		setDifficulty(newValue);
@@ -121,6 +177,11 @@ export default function Block({ block, blocks, setBlocks }) {
 						{isMining ? "Mining..." : "Mine"}
 					</Button>
 					{isMining && <CircularProgress size={24} sx={{ ml: 2 }} />}
+					{(executionTime > 0 || isMining) && (
+						<Typography sx={{ ml: 2 }}>
+							Time: {executionTime}s | Hashes: {currentNonce}
+						</Typography>
+					)}
 				</CardActions>
 			</Card>
 		</Box>
