@@ -9,11 +9,17 @@ import {
 	FilledInput,
 	FormControl,
 	InputLabel,
+	Typography,
 } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import Slider from "@mui/material/Slider";
 import { isValid, mine, propagateHashChange } from "../utils/BlockUtils";
 
 export default function Block({ block, blocks, setBlocks }) {
-	const valid = isValid(block);
+	const [isMining, setIsMining] = React.useState(false);
+	const [difficulty, setDifficulty] = React.useState(1);
+
+	const valid = isValid(block, difficulty);
 
 	const onDataChange = (e) => {
 		block.data = e.target.value;
@@ -33,9 +39,17 @@ export default function Block({ block, blocks, setBlocks }) {
 	};
 
 	const mineBlock = () => {
-		let blocksCopy = [...blocks];
-		blocksCopy[block.id] = mine(block);
-		setBlocks(blocksCopy);
+		setIsMining(true);
+		setTimeout(() => {
+			let blocksCopy = [...blocks];
+			blocksCopy[block.id] = mine(block, difficulty);
+			setBlocks(blocksCopy);
+			setIsMining(false);
+		}, 1000); // Simulate mining delay
+	};
+
+	const handleDifficultyChange = (event, newValue) => {
+		setDifficulty(newValue);
 	};
 
 	return (
@@ -89,11 +103,24 @@ export default function Block({ block, blocks, setBlocks }) {
 							multiline={true}
 						/>
 					</FormControl>
+					<Box sx={{ m: 2 }}>
+						<Typography gutterBottom>Difficulty</Typography>
+						<Slider
+							value={difficulty}
+							min={1}
+							max={5}
+							step={1}
+							marks
+							onChange={handleDifficultyChange}
+							valueLabelDisplay="auto"
+						/>
+					</Box>
 				</CardContent>
 				<CardActions>
-					<Button variant="contained" onClick={mineBlock}>
-						Mine
+					<Button variant="contained" onClick={mineBlock} disabled={isMining}>
+						{isMining ? "Mining..." : "Mine"}
 					</Button>
+					{isMining && <CircularProgress size={24} sx={{ ml: 2 }} />}
 				</CardActions>
 			</Card>
 		</Box>

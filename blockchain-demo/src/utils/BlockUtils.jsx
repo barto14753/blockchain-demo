@@ -1,23 +1,26 @@
 import sha256 from "crypto-js/sha256";
 import { hash } from "./Hash";
 
-const MINE_DIFFICULTY = 2;
-const SEARCH_DEPTH = 10000;
+export function calculateHash(data, prev, nonce) {
+	return sha256(data + prev + nonce).toString();
+}
 
-export const mine = (block) => {
-	let nonce;
-	for (nonce = 0; nonce < SEARCH_DEPTH; nonce++) {
-		const hash = sha256(
-			nonce + block.id + block.created + block.data + block.prev
-		).toString();
-		if (hash.slice(-MINE_DIFFICULTY) === "0".repeat(MINE_DIFFICULTY)) {
-			break;
-		}
+export function mine(block, difficulty = 1) {
+	let hash = "";
+	let nonce = 0;
+	const target = "0".repeat(difficulty);
+
+	while (!hash.startsWith(target)) {
+		nonce++;
+		hash = calculateHash(block.data, block.prev, nonce);
 	}
-	block.nonce = nonce;
-	block.hash = hash(block);
-	return block;
-};
+
+	return {
+		...block,
+		nonce,
+		hash,
+	};
+}
 
 export const newBlock = (prevBlock, data) => {
 	const block = {
@@ -30,8 +33,9 @@ export const newBlock = (prevBlock, data) => {
 	return mine(block);
 };
 
-export const isValid = (block) => {
-	return hash(block).slice(-MINE_DIFFICULTY) === "0".repeat(MINE_DIFFICULTY);
+export const isValid = (block, difficulty) => {
+	const target = "0".repeat(difficulty);
+	return block.hash.startsWith(target);
 };
 
 export const createRootBlock = () => {
