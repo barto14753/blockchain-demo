@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/blockchain-demo/static/js/main.acdf56c7.js",
+    "main.js": "/blockchain-demo/static/js/main.be20c157.js",
     "index.html": "/blockchain-demo/index.html",
-    "main.acdf56c7.js.map": "/blockchain-demo/static/js/main.acdf56c7.js.map"
+    "main.be20c157.js.map": "/blockchain-demo/static/js/main.be20c157.js.map"
   },
   "entrypoints": [
-    "static/js/main.acdf56c7.js"
+    "static/js/main.be20c157.js"
   ]
 }
