@@ -24,6 +24,7 @@ export default function Block({ block, blocks, setBlocks }) {
 	const [difficulty, setDifficulty] = React.useState(1);
 	const [executionTime, setExecutionTime] = React.useState(0);
 	const [currentNonce, setCurrentNonce] = React.useState(0);
+	const [currentHash, setCurrentHash] = React.useState("");
 	const startTimeRef = React.useRef(null);
 	const miningRef = React.useRef(null);
 
@@ -69,6 +70,7 @@ export default function Block({ block, blocks, setBlocks }) {
 
 			if (!result.done) {
 				setCurrentNonce(result.value.nonce);
+				setCurrentHash(result.value.hash);
 
 				if (result.value.finished) {
 					// Mining complete
@@ -155,7 +157,7 @@ export default function Block({ block, blocks, setBlocks }) {
 						<FilledInput
 							id="hash"
 							disabled={true}
-							value={block.hash}
+							value={isMining ? currentHash : block.hash}
 							multiline={true}
 						/>
 					</FormControl>
