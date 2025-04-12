@@ -70,10 +70,13 @@ export const createRootBlock = () => {
 	return mine(block);
 };
 
-export const propagateHashChange = (blockId, blocks) => {
+export const propagateHashChange = (blockId, blocks, isFirst = false) => {
 	const block = blocks[blockId];
-	block.created = Date.now();
-	blocks[blockId].hash = hash(block);
+
+	if (!isFirst) {
+		block.created = Date.now();
+		blocks[blockId].hash = hash(block);
+	}
 	if (blockId + 1 < blocks.length) {
 		blocks[blockId + 1].prev = block.hash;
 		return propagateHashChange(blockId + 1, blocks);

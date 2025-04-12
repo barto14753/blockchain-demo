@@ -87,7 +87,8 @@ export default function Block({ block, blocks, setBlocks }) {
 						nonce: result.value.nonce,
 						hash: result.value.hash,
 					};
-					setBlocks(blocksCopy);
+					const newBlocks = propagateHashChange(block.id, blocksCopy, true);
+					setBlocks(newBlocks);
 				} else {
 					// Continue mining in the next frame
 					miningRef.current = requestAnimationFrame(performMining);
