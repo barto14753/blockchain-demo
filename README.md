@@ -18,5 +18,4 @@ You can:
 
 ## In-app
 
-![371892678_351159997448274_6934262105148502482_n](https://github.com/barto14753/blockchain-demo/assets/56938330/4998f428-ea0e-42d2-ab9a-3192c464b5bd)
-![375022929_1241275979771068_8015411665035853231_n](https://github.com/barto14753/blockchain-demo/assets/56938330/c51f2035-6011-4409-bc18-d5d71b6b162d)
+<img width="2880" height="2442" alt="screencapture-barto14753-github-io-blockchain-demo-2025-11-09-22_37_39" src="https://github.com/user-attachments/assets/ac5df96e-8c98-4210-acfd-057bf77c97b7" />
