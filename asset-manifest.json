@@ -1,10 +1,17 @@
 {
   "files": {
-    "main.js": "/blockchain-demo/static/js/main.726a1e8f.js",
+    "main.js": "/blockchain-demo/static/js/main.b777a55d.chunk.js",
+    "main.js.map": "/blockchain-demo/static/js/main.b777a55d.chunk.js.map",
+    "runtime-main.js": "/blockchain-demo/static/js/runtime-main.bb5f4315.js",
+    "runtime-main.js.map": "/blockchain-demo/static/js/runtime-main.bb5f4315.js.map",
+    "static/js/2.29625f19.chunk.js": "/blockchain-demo/static/js/2.29625f19.chunk.js",
+    "static/js/2.29625f19.chunk.js.map": "/blockchain-demo/static/js/2.29625f19.chunk.js.map",
     "index.html": "/blockchain-demo/index.html",
-    "main.726a1e8f.js.map": "/blockchain-demo/static/js/main.726a1e8f.js.map"
+    "static/js/2.29625f19.chunk.js.LICENSE.txt": "/blockchain-demo/static/js/2.29625f19.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/main.726a1e8f.js"
+    "static/js/runtime-main.bb5f4315.js",
+    "static/js/2.29625f19.chunk.js",
+    "static/js/main.b777a55d.chunk.js"
   ]
 }
